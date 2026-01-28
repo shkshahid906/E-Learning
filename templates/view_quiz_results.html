@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .container{
+        
+    }
+</style>
+<div class="container mt-5">
+  <h2 class="mb-4">Results for "{{ quiz_title }}"</h2>
+
+  {% if results %}
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Student Name</th>
+          <th>Score</th>
+          <th>View Attempt</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in results %}
+          <tr>
+            <td>{{ result[0] }}</td>
+            <td>{{ result[1] }}</td>
+            <td>
+              <a href="{{ url_for('quiz_results', attempt_id=result[2]) }}" class="btn btn-sm btn-info">
+                View Answers
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No attempts submitted yet for this quiz.</p>
+  {% endif %}
+</div>
+{% endblock %}

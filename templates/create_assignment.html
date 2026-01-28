@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Create Assignment{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Create Assignment</h2>
+  <form method="POST" action="{{ url_for('create_assignment') }}">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" required maxlength="100">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="due_date" class="form-label">Due Date</label>
+      <input type="date" class="form-control" id="due_date" name="due_date" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Assignment</button>
+    <a href="{{ url_for('teacher_assignments') }}" class="btn btn-secondary ms-2">Back to Assignments</a>
+  </form>
+</div>
+{% endblock %}

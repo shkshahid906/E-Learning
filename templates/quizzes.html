@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .quiz {
+    padding: 5% 20%;
+  }
+  .btn-create {
+    background-color: #f0a500;
+    color: #1f2937;
+    padding: 10px 20px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-bottom: 25px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  .btn-create:hover {
+    background-color: #d18e00;
+  }
+</style>
+
+<div class="quiz">
+  <h2>Available Quizzes</h2>
+
+  {% if user_role in [1, 2] %}
+    <a href="{{ url_for('create_quiz') }}" class="btn-create">+ Create New Quiz</a>
+  {% endif %}
+
+  {% if quizzes %}
+    <ul class="list-group">
+      {% for quiz in quizzes %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ quiz[1] }}</strong><br>
+            <small>{{ quiz[2] }}</small>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            {% if user_role in [1, 2] %}
+              <a href="{{ url_for('view_quiz', quiz_id=quiz[0]) }}" class="btn btn-sm btn-info">View Quiz</a>
+              <a href="{{ url_for('add_question', quiz_id=quiz[0]) }}" class="btn btn-sm btn-outline-secondary">Add Questions</a>
+            {% endif %}
+            {% if user_role == 3 %}
+              <a href="{{ url_for('take_quiz', quiz_id=quiz[0]) }}" class="btn btn-sm btn-primary">Take Quiz</a>
+            {% endif %}
+            {% if user_role == 2 %}
+              <a href="{{ url_for('view_quiz_results', quiz_id=quiz[0]) }}" class="btn btn-sm btn-success">View Results</a>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No quizzes found.</p>
+  {% endif %}
+</div>
+{% endblock %}

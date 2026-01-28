@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.create_poll{
+    margin: 3% 20%;
+}
+h1{
+    font-size: 40px;
+    padding: 5% 0%;
+}
+</style>
+<div class="create_poll">
+<h1>Create a New Poll</h1>
+<form method="POST" action="{{ url_for('create_poll') }}">
+  <div class="mb-3">
+    <label for="question" class="form-label">Poll Question:</label>
+    <input type="text" class="form-control" id="question" name="question" required>
+  </div>
+
+  <div id="options-container">
+    <label class="form-label">Options:</label>
+    <input type="text" class="form-control mb-2" name="options" required>
+    <input type="text" class="form-control mb-2" name="options" required>
+  </div>
+
+  <button type="button" class="btn btn-secondary mb-3" onclick="addOption()">Add Another Option</button><br>
+
+  <button type="submit" class="btn btn-primary">Create Poll</button>
+</form>
+<a href="{{ url_for('polls') }}" class="btn ">Back to Polls</a>
+</div>
+<script>
+  function addOption() {
+    const container = document.getElementById('options-container');
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'options';
+    input.className = 'form-control mb-2';
+    input.required = true;
+    container.appendChild(input);
+  }
+</script>
+{% endblock %}

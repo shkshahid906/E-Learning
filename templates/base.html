@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}StudyNode{% endblock %}</title>
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-G3rZ6r7l7P+kfskEZzL4HLQoEh2VXAv4OB+aHlhqDx+1FjOcRKwM9qQqBKfCQAF45X2lfX4j9RMBg0UOso+5BQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <style>
+    .welcome {
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .sidebar a i {
+      margin-right: 10px;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4); 
+    }
+  </style>
+</head>
+<body>
+
+  <!-- === SIDEBAR === -->
+  <nav class="sidebar">
+    <h2>StudyNode</h2>
+
+    {% if session.role == 1 %}
+      <!-- Admin links -->
+      <a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-tools"></i> Admin Panel</a>
+      <a href="{{ url_for('admin_manage_teachers') }}"><i class="fas fa-chalkboard-teacher"></i> Manage Teachers</a>
+      <a href="{{ url_for('admin_manage_students') }}"><i class="fas fa-user-graduate"></i> Manage Students</a>
+      <a href="{{ url_for('forums') }}"><i class="fas fa-comments"></i> Forums</a>
+      <a href="{{ url_for('teacher_assignments') }}"><i class="fas fa-tasks"></i> Assignments</a>
+      <a href="{{ url_for('resources') }}"><i class="fas fa-folder-open"></i> Resources</a>
+      <a href="{{ url_for('polls') }}"><i class="fas fa-poll"></i> Polls</a>
+      <a href="{{ url_for('quizzes') }}"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="{{ url_for('add_student') }}"><i class="fas fa-user-plus"></i> Add Student</a>
+
+    {% elif session.role == 2 %}
+      <!-- Teacher links -->
+      <a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="{{ url_for('forums') }}"><i class="fas fa-comments"></i> Forums</a>
+      <a href="{{ url_for('teacher_assignments') }}"><i class="fas fa-tasks"></i> Assignments</a>
+      <a href="{{ url_for('resources') }}"><i class="fas fa-folder-open"></i> Resources</a>
+      <a href="{{ url_for('polls') }}"><i class="fas fa-poll"></i> Polls</a>
+      <a href="{{ url_for('quizzes') }}"><i class="fas fa-question-circle"></i> Quizzes</a>
+
+    {% elif session.role == 3 %}
+      <!-- Student links -->
+      <a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="{{ url_for('forums') }}"><i class="fas fa-comments"></i> Forums</a>
+      <a href="{{ url_for('assignments') }}"><i class="fas fa-tasks"></i> Assignments</a>
+      <a href="{{ url_for('resources') }}"><i class="fas fa-folder-open"></i> Resources</a>
+      <a href="{{ url_for('polls') }}"><i class="fas fa-poll"></i> Polls</a>
+      <a href="{{ url_for('quizzes') }}"><i class="fas fa-question-circle"></i> Quizzes</a>
+    {% endif %}
+  </nav>
+
+  <!-- === HEADER === -->
+  <header class="header">
+    <div class="welcome">Welcome, {{ username }}</div>
+    <a href="{{ url_for('logout') }}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </header>
+
+  <!-- === MAIN CONTENT === -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StudyNode - Login</title>
+  <style>
+    /* login_register.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: #fff;
+  padding: 40px 45px;
+  border-radius: 14px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  width: 400px;
+  max-width: 95vw;
+}
+
+h2 {
+  margin-bottom: 30px;
+  color: #1f2937;
+  font-weight: 700;
+  text-align: center;
+  user-select: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 22px;
+  border: 1.8px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: #f0a500;
+}
+
+button {
+  width: 100%;
+  background-color: #f0a500;
+  color: #1f2937;
+  border: none;
+  padding: 16px 0;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d18e00;
+}
+
+.flashes {
+  list-style: none;
+  margin-bottom: 25px;
+  padding-left: 0;
+}
+
+.flashes li {
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.flashes li.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1.5px solid #10b981;
+}
+
+.flashes li.error {
+  background-color: #dbc6c6;
+  color: #991b1b;
+  border: 1.5px solid #ef4444;
+}
+
+p {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 18px;
+}
+
+p a {
+  color: #f0a500;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes" id="flash-messages">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <label for="username">Username:</label><br />
+      <input type="text" id="username" name="username" required /><br />
+
+      <label for="password">Password:</label><br />
+      <input type="password" id="password" name="password" required /><br />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+  </div>
+<script>
+  // Auto-hide flash messages after 3 seconds
+  setTimeout(function () {
+    const flash = document.getElementById('flash-messages');
+    if (flash) {
+      flash.style.transition = 'opacity 0.5s ease';
+      flash.style.opacity = '0';
+      setTimeout(() => flash.remove(), 500);  // Optional: remove from DOM
+    }
+  }, 1000); // 3000ms = 3 seconds
+</script>
+
+</body>
+</html>

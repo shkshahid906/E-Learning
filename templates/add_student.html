@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Add Student - StudyNode{% endblock %}
+
+{% block content %}
+<style>
+  .form-wrapper {
+    margin: 5% 20%;
+    /* background: #fff; */
+    padding: 40px;
+    border-radius: 14px;
+    max-width: 700px;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+  }
+form{
+    margin-left: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+  input, select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  button {
+    background-color: #f0a500;
+    color: #1f2937;
+    border: none;
+    padding: 12px 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #d18e00;
+  }
+  h2{
+    text-align: center;
+    font-size: 40px
+  }
+</style>
+
+<div class="form-wrapper">
+    <h2>Add Student</h2>
+  <form method="POST">
+    <div class="form-group">
+      <label>First Name:</label>
+      <input type="text" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Last Name:</label>
+      <input type="text" name="surname" required>
+    </div>
+
+    <div class="form-group">
+      <label>Username:</label>
+      <input type="text" name="username" required>
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label>Password:</label>
+      <input type="password" name="password" required>
+    </div>
+
+    <div class="form-group">
+      <label>Gender:</label>
+      <select name="sexe" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Date of Birth:</label>
+      <input type="date" name="birth_date" required>
+    </div>
+
+    <button type="submit">Create Student</button>
+  </form>
+</div>
+{% endblock %}

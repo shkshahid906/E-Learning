@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}View Submissions{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Submissions for: {{ assignment.title }}</h2>
+  <a href="{{ url_for('teacher_assignments') }}" class="btn btn-secondary mb-3">Back to Assignments</a>
+
+  {% if submissions %}
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Username</th>
+        <th>File</th>
+        <th>Submitted At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sub in submissions %}
+      <tr>
+        <td>{{ sub.Name }} </td>
+        <td>{{ sub.Username }}</td>
+        <td>
+          <a href="{{ url_for('uploaded_file', filename=sub.file) }}" target="_blank" class="btn btn-outline-primary btn-sm">Download</a>
+        </td>
+        <td>{{ sub.submitted_at.strftime('%Y-%m-%d %H:%M') if sub.submitted_at else '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No submissions yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

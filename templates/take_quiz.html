@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .take{
+        padding: 5% 20%;
+    }
+  form{
+   display: flex;
+   flex-direction: column;
+  }
+  h2{
+    margin-bottom: 5%;
+    font-size: 50px;
+  }
+  .card-header{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 2%;
+  }
+  .form-check{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+<div class="take">
+
+
+<h2>Quiz: {{ quiz.title }}</h2>
+
+<form method="POST" action="{{ url_for('submit_quiz', quiz_id=quiz.id) }}">
+  {% for question in questions %}
+    <div class="">
+      <strong>Q{{ loop.index }}. {{ question.text }}</strong><br>
+      {% for option in question.options or [] %}
+
+        <div class="form-check">
+            <div class="">
+          <label class="form-check-label" for="option{{ option.id }}">{{ loop.index }}. {{ option.text }}</label>
+          </div>
+            <div class="">
+          <input class="form-check-input" type="radio" name="{{ question.id }}" id="option{{ option.id }}" value="{{ option.id }}" required>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-success">Submit Quiz</button>
+</form>
+</div>
+{% endblock %}

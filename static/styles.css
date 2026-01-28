@@ -1,0 +1,464 @@
+/* === RESET & BASE === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background-color: #1f2937;
+  color: #f0a500;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.sidebar h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.sidebar a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background-color: #f0a500;
+  color: #1f2937;
+}
+
+/* === HEADER === */
+.header {
+  position: fixed;
+  top: 0;
+  left: 220px;
+  right: 0;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  z-index: 900;
+}
+
+.header .welcome {
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: #1f2937;
+}
+
+.logout-btn {
+  background-color: #f0a500;
+  color: #1f2937;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.logout-btn:hover {
+  background-color: #d18e00;
+}
+
+/* === MAIN CONTENT === */
+.main-content {
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  background-color: #f5f7fa;
+  color: #1f2937;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* === FORM STYLING === */
+form {
+  align-self: center;
+  max-width: 480px;
+  background: #fff;
+  padding: 35px 40px;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 22px;
+  font-size: 1rem;
+  border: 1.8px solid #d1d5db;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #f0a500;
+  outline: none;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  background-color: #f0a500;
+  color: #1f2937;
+  padding: 16px 0;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #d18e00;
+}
+
+/* === FLASH MESSAGES === */
+.flashes {
+  list-style: none;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.flashes li {
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.flash-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.flash-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.flash-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.sidebar a.active {
+  background-color: #f0a500;
+  color: #1f2937;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+
+/* === BUTTONS === */
+.btn {
+  background-color: #f0a500;
+  color: #1f2937;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 8px 6px 14px 0;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.btn:hover {
+  background-color: #d18e00;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+
+/* Polls Styling */
+.poll-card {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  color: #1f2937;
+}
+
+.poll-card h3 {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.poll-option {
+  margin-bottom: 15px;
+}
+
+.poll-option input[type="radio"] {
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.poll-results-list {
+  list-style: none;
+  padding: 0;
+  max-width: 480px;
+}
+
+.poll-results-list li {
+  background: #f5f7fa;
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.poll-results-list li strong {
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.result-bar {
+  height: 12px;
+  background-color: #f0a500;
+  border-radius: 8px;
+  opacity: 0.8;
+  transition: width 0.5s ease;
+}
+
+
+
+
+/* === TABLE STYLING === */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 15px 22px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.table th {
+  background-color: #f0a500;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.table tr:hover {
+  background-color: #fef3c7;
+}
+
+/* === FORUM POSTS === */
+.forum-post {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  color: #1f2937;
+}
+
+.forum-post h3 {
+  margin-bottom: 14px;
+  font-size: 1.25rem;
+}
+
+.forum-post p {
+  line-height: 1.7;
+  margin-bottom: 14px;
+  color: #444;
+}
+
+.forum-post .author {
+  font-size: 0.95rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* === RESOURCES PAGE SPECIFIC STYLES === */
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 30px;
+  user-select: none;
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.list-group-item {
+  background-color: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 0.1);
+  color: #1f2937;
+  transition: box-shadow 0.3s ease;
+}
+
+.list-group-item:hover {
+  box-shadow: 0 8px 25px rgb(0 0 0 / 0.15);
+}
+
+.list-group-item h5 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  user-select: text;
+  color: #111827;
+}
+
+.list-group-item small {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.list-group-item a.btn-success {
+  margin-top: 12px;
+  background-color: #10b981;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.list-group-item a.btn-success:hover {
+  background-color: #0f766e;
+}
+
+/* === DELETE BUTTONS === */
+.delete-btn {
+  background-color: #ef4444; /* red for delete */
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  display: inline-block;
+  margin-left: 10px; 
+  text-align: center;
+  text-decoration: none;
+}
+
+.delete-btn:hover {
+  background-color: #b91c1c; /* darker red on hover */
+}
+
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 10px 5px;
+    gap: 10px;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar a {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .header {
+    position: relative;
+    left: 0;
+    height: 50px;
+    padding: 0 15px;
+  }
+
+  .main-content {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 25px 20px;
+  }
+
+  form {
+    max-width: 100%;
+    padding: 25px 20px;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 14px;
+  }
+}

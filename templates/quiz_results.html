@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    #score{
+        font-size: 20px;
+        font-weight: 800;
+        color: green;
+        text-transform: uppercase;
+    }
+    .card{
+        background: rgb(224, 220, 220);
+        padding: 3% 5%;
+        border-radius: 20px;
+        margin: 1%;
+    }
+</style>
+  <div class="container mt-4">
+    <h2>Quiz Results</h2>
+    <p id="score">Your Score: {{ score }} / {{ total_questions }}</p>
+
+    {% for question in questions %}
+  <div class="card mt-3">
+    <div class="card-body">
+      <p><strong>Q{{ loop.index }} . {{ question.text }}</strong></p>
+      <ul>
+        {% for option in question.options %}
+          <li
+            {% if option.id == user_answers.get(question.id) %}
+              style="color: blue;"
+            {% elif option.is_correct %}
+              style="color: green;"
+            {% endif %}
+          >
+            {{ option.text }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endfor %}
+
+  </div>
+{% endblock %}

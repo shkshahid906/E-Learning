@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    form{
+        margin: 5% 20%;
+    }
+    h1{
+       margin: 0% 20%;
+    }
+</style>
+<h1>Add Question to Quiz #{{ quiz_id }}</h1>
+
+<form method="POST" action="{{ url_for('add_question', quiz_id=quiz_id) }}">
+  <div class="mb-3">
+    <label for="question_text" class="form-label">Question</label>
+    <textarea class="form-control" id="question_text" name="question_text" rows="3" required></textarea>
+  </div>
+
+  <div id="options-container">
+    <div class="mb-3 option-item">
+      <label class="form-label">Option 1</label>
+      <input type="text" name="options[]" class="form-control" required>
+    </div>
+    <div class="mb-3 option-item">
+      <label class="form-label">Option 2</label>
+      <input type="text" name="options[]" class="form-control" required>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-link" id="add-option-btn">Add Another Option</button>
+
+  <div class="mb-3 mt-3">
+    <label for="correct_option" class="form-label">Correct Option Number (starting from 0)</label>
+    <input type="number" min="0" class="form-control" id="correct_option" name="correct_option" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Add Question</button>
+</form>
+
+<script>
+  document.getElementById('add-option-btn').addEventListener('click', function() {
+    const container = document.getElementById('options-container');
+    const count = container.querySelectorAll('.option-item').length + 1;
+    const div = document.createElement('div');
+    div.className = 'mb-3 option-item';
+    div.innerHTML = `
+      <label class="form-label">Option ${count}</label>
+      <input type="text" name="options[]" class="form-control" required>
+    `;
+    container.appendChild(div);
+  });
+</script>
+{% endblock %}

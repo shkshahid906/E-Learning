@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StudyNode - Register</title>
+    <style>
+    /* register.css */
+
+body {
+  margin: 0;
+  padding: 40px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #1f2937;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 40px 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1f2937;
+}
+
+/* Flash messages */
+.flashes {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.flashes li {
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.flashes .success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.flashes .error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  /* gap: 14px; */
+}
+
+label {
+  font-weight: 600;
+  /* margin-bottom: 4px; */
+}
+
+input,
+select {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #f0a500;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(240, 165, 0, 0.2);
+}
+
+button[type="submit"] {
+  margin-top: 14px;
+  background-color: #f0a500;
+  color: #1f2937;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #d18e00;
+}
+
+/* Bottom link */
+p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+a {
+  color: #f0a500;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('register') }}">
+      <label for="name">First Name:</label><br />
+      <input type="text" id="name" name="name" required /><br />
+
+      <label for="surname">Last Name:</label><br />
+      <input type="text" id="surname" name="surname" required /><br />
+
+      <label for="username">Username:</label><br />
+      <input type="text" id="username" name="username" required /><br />
+
+      <label for="email">Email:</label><br />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        pattern="^[^\s@]+@gmail+\.[^\s@]+$"
+        title="Please enter a valid email address from a Google Mail (gmail.com) or an educational (.edu) domain (e.g., yourname@gmail.com, student@university.edu)."
+      /><br />
+
+      <label for="birth_date">Birth Date:</label><br />
+      <input type="date" id="birth_date" name="birth_date" required /><br />
+
+      <label for="sexe">Gender:</label><br />
+      <select id="sexe" name="sexe" required>
+        <option value="">Select...</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select><br />
+
+      <label for="password">Password:</label><br />
+      <input type="password" id="password" name="password" required /><br />
+
+      <label for="role">Role: Teacher</label><br />
+      <input type="hidden" name="role" value="2"><br/>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+  </div>
+</body>
+</html>

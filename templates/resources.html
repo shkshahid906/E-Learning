@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}StudyNode - Resources{% endblock %}
+
+{% block content %}
+
+
+<main class="main-content">
+  <div class="container ">
+    <h2>Study Resources</h2>
+
+    {% if role == 2 %}
+    <form method="POST" enctype="multipart/form-data" class="mb-4">
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Select File</label>
+        <input type="file" name="file" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Upload Resource</button>
+    </form>
+    {% endif %}
+
+   <div class="list-group">
+  {% for res in resources %}
+  <div class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <h5 class="mb-1">{{ res.description[:80] }}{% if res.description|length > 80 %}...{% endif %}</h5>
+      <small>Uploaded by <strong>{{ res.Username }}</strong> on {{ res.upload_time.strftime('%Y-%m-%d %H:%M') }}</small><br>
+      <a href="{{ url_for('download_resource', filename=res.filename) }}" class="btn btn-sm btn-success mt-2">Download</a>
+    </div>
+
+    {% if role == 2 %}
+    <!-- Delete button only for teachers -->
+    <form method="POST" action="{{ url_for('delete_resource') }}" style="margin-left: 15px;">
+      <input type="hidden" name="resource_id" value="{{ res.id }}">
+      <a class="delete-btn" onclick="return confirm('Are you sure you want to delete this resource?');">Delete</a>
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+  </div>
+</main>
+{% endblock %}

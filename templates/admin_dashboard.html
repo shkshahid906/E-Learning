@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard - StudyNode{% endblock %}
+
+{% block content %}
+<style>
+  .admin-dashboard {
+    padding: 2% 16%;
+  }
+
+  .admin-dashboard h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+
+  .card h3 {
+    color: #1f2937;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+
+  .card p {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #f0a500;
+  }
+</style>
+
+<div class="admin-dashboard">
+  <h2>Dashboard</h2>
+
+  <div class="stat-cards">
+    <div class="card">
+      <h3>👥 Total Users</h3>
+      <p>{{ user_count }}</p>
+    </div>
+    <div class="card">
+      <h3>📝 Total Quizzes</h3>
+      <p>{{ quiz_count }}</p>
+    </div>
+    <div class="card">
+      <h3>💬 Forum Posts</h3>
+      <p>{{ forum_count }}</p>
+    </div>
+    <div class="card">
+      <h3>📊 Polls</h3>
+      <p>{{ poll_count }}</p>
+    </div>
+    <div class="card">
+      <h3>📂 Assignments</h3>
+      <p>{{ assignment_count }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

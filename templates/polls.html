@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .poll{
+    padding: 3% 20%;
+  }
+  form{
+   display: flex;
+   flex-direction: column;
+  }
+  h2{
+    margin-bottom: 5%;
+    font-size: 50px;
+  }
+  .card-header{
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2%;
+  }
+  .form-check{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card{
+    background: rgb(255, 255, 255);
+    padding: 3%;
+    margin: 3%;
+    border-radius: 20px;
+    box-shadow:0px 5px 20px 0px grey;
+  }
+</style>
+<div class="poll">
+  <a href="{{ url_for('create_poll') }}" class="btn ">Create a Poll</a>
+  <h2>Available Polls</h2>
+
+  {% if polls %}
+  {% for poll_id, poll in polls.items() %}
+  <div class="card mb-3">
+    <div class="card-header">
+      {{ loop.index }} . {{ poll.question }}
+    </div>
+    <div class="card-body">
+      {% if user_role == 3 %}  {# 3 means student #}
+        <form method="POST" action="{{ url_for('poll_vote') }}">
+          <input type="hidden" name="poll_id" value="{{ poll_id }}">
+          {% for option in poll.options %}
+            <div class="form-check">
+              <div class="form-check-label">
+              <label class="form-check-label">{{ option.text }}</label>
+              </div>
+              <div class="form-check-input">
+              <input class="form-check-input" type="radio" name="option_id" value="{{ option.id }}" required>
+              </div>
+              
+            </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary mt-2">Vote</button>
+          <a href="{{ url_for('poll_results', poll_id=poll_id) }}" class="btn btn-link">View Results</a>
+        </form>
+      {% else %}
+        <a href="{{ url_for('poll_results', poll_id=poll_id) }}" class="btn btn-link">View Results</a>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+
+
+  {% else %}
+    <p>No polls available at the moment.</p>
+  {% endif %}
+{% endblock %}

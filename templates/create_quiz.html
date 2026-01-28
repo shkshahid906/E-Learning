@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<h2>Create a New Quiz</h2>
+<form method="POST" action="{{ url_for('create_quiz') }}">
+  <div class="mb-3">
+    <label for="title" class="form-label">Quiz Title</label>
+    <input type="text" class="form-control" id="title" name="title" required>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Quiz</button>
+</form>
+</div>
+{% endblock %}

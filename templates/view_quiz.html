@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}View Quiz - {{ quiz.title }}{% endblock %}
+
+{% block content %}
+<style>
+    .quiz-preview{
+        margin-left: 50px;
+    }
+</style>
+<div class="quiz-preview" style="padding: 5% 15%;">
+  <h2>{{ quiz.title }}</h2>
+  <p>{{ quiz.description }}</p>
+
+  {% if questions %}
+    {% for q in questions %}
+      <div class="question-card" style="background: #fff; padding: 20px; margin-top: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+        <h4>Q{{ loop.index }}. {{ q.question_text }}</h4>
+        <ul style="list-style: none; padding: 0;">
+          {% for opt in q.options %}
+            <li style="padding: 8px; margin-bottom: 6px; border-radius: 6px; background-color: {% if opt.is_correct %}#d1fae5{% else %}#f9fafb{% endif %};">
+              {{ ['A', 'B', 'C', 'D', 'E', 'F'][loop.index0] }}. {{ opt.option_text }}
+              {% if opt.is_correct %}
+                ✅
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No questions found.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - StudyNode{% endblock %}
+
+{% block content %}
+<style>
+  .dashboard-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .dashboard-buttons a {
+    background-color: #f0a500;
+    color: #1f2937;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    user-select: none;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    min-width: 160px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgb(240 165 0 / 0.3);
+  }
+
+  .dashboard-buttons a:hover,
+  .dashboard-buttons a:focus {
+    background-color: #d18e00;
+    box-shadow: 0 6px 8px rgb(209 142 0 / 0.5);
+    outline: none;
+    color: #1f2937;
+  }
+
+  .stat-card {
+    background: #ecdedede;
+    box-shadow: inset 5px 5px 5px grey;
+    padding: 10%;
+    text-align: center;
+    border-radius: 20px;
+  }
+
+  .stat-card p {
+    font-size: 25px;
+    font-weight: 700;
+  }
+  .dash{
+    padding:2% 15%;
+  }
+
+  .stats-section {
+    margin:5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+</style>
+
+<div class="dash">
+<div class="dashboard-buttons">
+  {% if session.role == 1 %}
+    <a href="{{ url_for('admin_dashboard') }}">Manage Users</a>
+  {% elif session.role == 2 %}
+    <a href="{{ url_for('forums') }}">Go to Forums</a>
+    <a href="{{ url_for('assignments') }}">View Assignments</a>
+    <a href="{{ url_for('resources') }}">Browse Resources</a>
+    <a href="{{ url_for('polls') }}">Participate in Polls</a>
+    <a href="{{ url_for('quizzes') }}">Take Quizzes</a>
+  {% else %}
+    <a href="{{ url_for('forums') }}">Go to Forums</a>
+    <a href="{{ url_for('assignments') }}">View Assignments</a>
+    <a href="{{ url_for('resources') }}">Browse Resources</a>
+    <a href="{{ url_for('polls') }}">Participate in Polls</a>
+    <a href="{{ url_for('quizzes') }}">Take Quizzes</a>
+  {% endif %}
+</div>
+
+<section class="stats-section">
+  <div class="stat-card">
+    <h3>📊 No. of Polls</h3>
+    <p>{{ poll_count }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>📝 No. of Quizzes</h3>
+    <p>{{ quiz_count }}</p>
+  </div>
+
+  {% if session.role == 1 or session.role == 2 %}
+    <div class="stat-card">
+      <h3>👥 Registered Users</h3>
+      <p>{{ user_count }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>📂 Assignment Submissions</h3>
+      <p>{{ assignment_submissions }}</p>
+    </div>
+  {% elif session.role == 3 %}
+    <div class="stat-card">
+      <h3>✅Quiz Attempts</h3>
+      <p>{{ student_attempts }}</p>
+    </div>
+    <div class="stat-card">
+    <h3>📂Assignment Submissions</h3>
+    <p>{{ student_assignments }}</p>
+  </div>
+  {% endif %}
+</section>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}StudyNode - Poll Results{% endblock %}
+
+{% block content %}
+<style>
+.polls{
+padding: 3% 20%;
+}
+.poll-results-list{
+margin: 4% 0%;
+background-attachment: white;
+box-shadow: 5px 5px 5px  grey;
+border:2px solid grey;
+border-radius: 20px;
+padding: 4%;
+}
+</style>
+<div class="polls">
+<h2>Poll Results</h2>
+<h3>{{ poll }}</h3>
+
+<ul class="poll-results-list">
+  {% for option_id, option_text, votes in options %}
+  <li>
+    <strong>{{ option_text }}</strong>: {{ votes }} votes ({{ '%.1f' % ((votes / total_votes) * 100) }}%)
+    <div class="result-bar" style="width: {{ (votes / total_votes) * 100 }}%;"></div>
+  </li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('polls') }}" class="btn">Back to Polls</a>
+</div>
+
+
+{% endblock %}
